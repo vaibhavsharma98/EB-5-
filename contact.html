@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      Contact The Calculus — Book a Confidential EB-5 Consultation | New Delhi
+      Contact The Calculus — Book an EB-5 Consultation | New Delhi
     </title>
     <meta
       name="description"
-      content="Book a free, confidential EB-5 consultation with The Calculus in Connaught Place, New Delhi. Call, WhatsApp, or send an enquiry."
+      content="Book a private preliminary EB-5 consultation with The Calculus in Connaught Place, New Delhi. Call, WhatsApp, or send an enquiry."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,8 +18,15 @@
     />
     <link rel="icon" type="image/svg+xml" href="assets/logo-gold.svg" />
     <meta name="theme-color" content="#477AB9" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Calculus" />
+    <meta property="og:title" content="Book an EB-5 Consultation | The Calculus" />
+    <meta property="og:description" content="Speak with The Calculus in Connaught Place, New Delhi about your family’s preliminary EB-5 readiness and next professional steps." />
+    <meta property="og:url" content="https://thecalculusgroup.com/contact.html" />
+    <meta property="og:image" content="https://thecalculusgroup.com/assets/hero1.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="canonical" href="https://thecalculusgroup.com/contact.html" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260809" />
     <script>
       document.documentElement.classList.add("js");
       addEventListener("load", function () {
@@ -36,8 +43,9 @@
   <body>
     <div class="topbar solid" id="topbar">
       <div class="urgency">
-        EB-5 program terms are expected to change from <b>October 2026</b>.
-        <a href="contact.html">Talk to an advisor →</a>
+        <span class="urgency-label">Program note</span>
+        EB-5 visa availability changes monthly.
+        <a href="disclosures.html#program-status">Current status &amp; sources →</a>
       </div>
       <header id="hdr">
         <div class="wrap nav">
@@ -97,7 +105,7 @@
       </svg>
       <div class="wrap">
         <div class="crumb reveal"><a href="index.html">Home</a> · Contact</div>
-        <h1 class="reveal">Let's talk — confidentially.</h1>
+        <h1 class="reveal">Let's talk—clearly and privately.</h1>
         <p class="reveal">Book a consultation, or reach us on WhatsApp.</p>
       </div>
     </section>
@@ -107,12 +115,12 @@
           <div class="reveal">
             <div class="eyebrow">Book a consultation</div>
             <h2 style="margin-top: 12px; font-size: 34px">
-              Start your American journey — confidentially.
+              Begin with a private conversation.
             </h2>
             <p class="lead">
-              Speak with an EB-5 advisor at The Calculus. No obligation,
-              completely confidential. We'll listen to your goals and explain
-              your options honestly.
+              Speak with an EB-5 advisor at The Calculus. There is no obligation.
+              We handle enquiry details under our privacy notice and explain the
+              process, limitations, and next steps clearly.
             </p>
             <div class="contact-cards">
               <a
@@ -202,9 +210,9 @@
                 ></span>
                 <span
                   ><span class="cc-label">Response time</span
-                  ><span class="cc-value">Within one business day</span
+                  ><span class="cc-value">Target: one business day</span
                   ><span class="cc-hint"
-                    >Confidential · No obligation</span
+                    >Privacy-aware · No obligation</span
                   ></span
                 >
               </div>
@@ -213,12 +221,12 @@
               <div class="cn-title">What happens in your consultation</div>
               <ol>
                 <li>
-                  <b>We listen.</b> Your goals, your family, your timeline —
-                  completely confidential.
+                  <b>We listen.</b> Your goals, your family, and your timeline,
+                  handled under our privacy notice.
                 </li>
                 <li>
-                  <b>Honest assessment.</b> Whether EB-5 genuinely fits you,
-                  including the risks other consultants gloss over.
+                  <b>Clear preliminary review.</b> Your goals, readiness, material
+                  risks, and the independent professional reviews required.
                 </li>
                 <li>
                   <b>Clear next steps.</b> Your options explained plainly — no
@@ -228,35 +236,38 @@
             </div>
           </div>
           <div class="reveal d1">
-            <form class="form" data-lead>
+            <form class="form" data-lead="contact">
               <h3>Book your consultation</h3>
               <p style="color: var(--slate); font-size: 13.5px">
-                We reply within one business day.
+                We aim to reply within one business day.
               </p>
-              <div class="fd"><label>Name</label><input required /></div>
+              <div class="fd"><label for="contact-name">Name</label><input id="contact-name" name="name" autocomplete="name" required /></div>
               <div class="fd">
-                <label>Email</label><input type="email" required />
+                <label for="contact-email">Email</label><input id="contact-email" name="email" type="email" autocomplete="email" required />
               </div>
               <div class="fd">
-                <label>Phone (WhatsApp)</label><input required />
+                <label for="contact-phone">Phone (WhatsApp)</label><input id="contact-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required />
               </div>
               <div class="fd">
-                <label>Readiness</label
-                ><select>
-                  <option>Select…</option>
-                  <option>Ready to explore EB-5</option>
-                  <option>Still researching</option>
-                  <option>Not sure yet</option>
+                <label for="contact-readiness">Readiness</label
+                ><select id="contact-readiness" name="readiness">
+                  <option value="">Select…</option>
+                  <option value="Ready to explore EB-5">Ready to explore EB-5</option>
+                  <option value="Still researching">Still researching</option>
+                  <option value="Not sure yet">Not sure yet</option>
                 </select>
               </div>
               <div class="fd">
-                <label>Message (optional)</label><textarea rows="3"></textarea>
+                <label for="contact-message">Message (optional)</label><textarea id="contact-message" name="message" rows="3"></textarea>
               </div>
+              <div class="hp-field" aria-hidden="true"><label for="contact-website">Website</label><input id="contact-website" name="website" tabindex="-1" autocomplete="off" /></div>
+              <label class="consent-row" for="contact-consent"><input id="contact-consent" name="consent" type="checkbox" required /><span>I agree that The Calculus may use these details to respond to my enquiry, as described in the <a href="privacy.html">Privacy Notice</a>.</span></label>
               <button class="btn btn-gold" type="submit">
-                Book My Consultation <span class="arr">→</span>
+                <span data-submit-label>Book My Consultation</span> <span class="arr">→</span>
               </button>
+              <div class="form-status" data-form-status role="status" hidden></div>
               <p class="note">
-                Confidential. No obligation. Advisory since 1985.
+                Preliminary consultation only. No obligation.
               </p>
             </form>
           </div>
@@ -270,8 +281,8 @@
             <div class="nm">THE CALCULUS</div>
             <div class="tl">Experience. Trust. Global Vision.</div>
             <div style="margin-top: 12px; font-size: 13px">
-              A <span class="yrs">41-year</span> New Delhi advisory firm guiding
-              Indian families to U.S. permanent residency through EB-5.
+              A New Delhi advisory business with a legacy dating to 1985 and a
+              newer, separately defined EB-5 service line.
             </div>
           </div>
           <div class="fcol">
@@ -281,7 +292,7 @@
             ><a href="about.html">About</a><a href="faq.html">FAQ</a>
           </div>
           <div class="fcol">
-            <b>GET STARTED</b><a href="eligibility.html">Check eligibility</a
+            <b>GET STARTED</b><a href="eligibility.html">Readiness review</a
             ><a href="contact.html">Book a consultation</a
             ><a href="https://wa.me/919818781231" target="_blank" rel="noopener"
               >WhatsApp us</a
@@ -296,10 +307,10 @@
           </div>
         </div>
         <div class="disc">
-          The Calculus provides advisory services for the EB-5 Immigrant
-          Investor Program. This website provides general information, not legal
-          advice. Program terms and eligibility may change; immigration outcomes
-          are determined by U.S. authorities.
+          General information only—not legal, tax, securities, or investment
+          advice. EB-5 capital must remain at risk; immigration approval and
+          return of capital are never guaranteed.
+          <span class="legal-links"><a href="disclosures.html">Disclosures &amp; risk</a><a href="privacy.html">Privacy</a></span>
         </div>
         <div class="copyr">
           © <span id="yr">2026</span> The Calculus. All rights reserved.
@@ -317,6 +328,6 @@
           d="M12 2A10 10 0 0 0 3.5 17.5L2 22l4.6-1.5A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.2 1.1-1.7 1.1-.4 0-1 .1-3.2-.8-2.7-1.1-4.4-3.9-4.6-4.1-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.4-.3.6-.3h.5c.2 0 .4 0 .6.5l.7 1.8c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.7.9.8 1.6 1 1.9 1.2.2.1.4 0 .5-.1l.6-.8c.2-.2.3-.2.6-.1l1.7.8c.3.1.4.2.5.3.1.2.1.6-.1 1Z"
         /></svg
     ></a>
-    <script src="scripts.js"></script>
+    <script src="scripts.js?v=20260809"></script>
   </body>
 </html>

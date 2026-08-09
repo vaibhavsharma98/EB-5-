@@ -4,11 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      EB-5 Eligibility Check for Indian Investors (60 Seconds) | The Calculus
+      Preliminary EB-5 Readiness Review for Indian Investors | The Calculus
     </title>
     <meta
       name="description"
-      content="Take our quick, confidential EB-5 eligibility check and find out your best next step in 60 seconds. No documents needed."
+      content="Complete a preliminary EB-5 readiness questionnaire for Indian families. This is not a legal eligibility determination."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -18,11 +18,18 @@
     />
     <link rel="icon" type="image/svg+xml" href="assets/logo-gold.svg" />
     <meta name="theme-color" content="#477AB9" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="The Calculus" />
+    <meta property="og:title" content="Preliminary EB-5 Readiness Review | The Calculus" />
+    <meta property="og:description" content="Complete a short preliminary EB-5 readiness questionnaire. This is not a legal eligibility determination." />
+    <meta property="og:url" content="https://thecalculusgroup.com/eligibility.html" />
+    <meta property="og:image" content="https://thecalculusgroup.com/assets/hero1.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link
       rel="canonical"
       href="https://thecalculusgroup.com/eligibility.html"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=20260809" />
     <script>
       document.documentElement.classList.add("js");
       addEventListener("load", function () {
@@ -39,8 +46,9 @@
   <body>
     <div class="topbar solid" id="topbar">
       <div class="urgency">
-        EB-5 program terms are expected to change from <b>October 2026</b>.
-        <a href="contact.html">Talk to an advisor →</a>
+        <span class="urgency-label">Program note</span>
+        EB-5 visa availability changes monthly.
+        <a href="disclosures.html#program-status">Current status &amp; sources →</a>
       </div>
       <header id="hdr">
         <div class="wrap nav">
@@ -100,12 +108,12 @@
       </svg>
       <div class="wrap">
         <div class="crumb reveal">
-          <a href="index.html">Home</a> · Eligibility Check
+          <a href="index.html">Home</a> · Readiness Review
         </div>
-        <h1 class="reveal">Could EB-5 be right for your family?</h1>
+        <h1 class="reveal">How ready is your family to evaluate EB-5?</h1>
         <p class="reveal">
-          Answer a few quick questions — confidential, no documents, about a
-          minute.
+          A preliminary readiness review—no documents and no automated legal
+          eligibility decision.
         </p>
       </div>
     </section>
@@ -113,13 +121,13 @@
       <div class="wrap">
         <div id="stepper" class="form" style="max-width: 640px; margin: 0 auto">
           <div class="progress"><i></i></div>
-          <form data-lead>
+          <form data-lead="eligibility">
             <div class="estep on">
               <h3>How ready are you to explore EB-5?</h3>
               <div class="optrow" style="margin-top: 14px">
-                <span class="opt" data-value="ready">Ready to begin</span
-                ><span class="opt" data-value="researching">Still researching</span
-                ><span class="opt" data-value="unsure">Not sure yet</span>
+                <button type="button" class="opt" data-value="Ready to begin">Ready to begin</button
+                ><button type="button" class="opt" data-value="Still researching">Still researching</button
+                ><button type="button" class="opt" data-value="Not sure yet">Not sure yet</button>
               </div>
               <button
                 type="button"
@@ -133,10 +141,10 @@
             <div class="estep">
               <h3>Are you currently in the U.S.?</h3>
               <div class="optrow" style="margin-top: 14px">
-                <span class="opt" data-value="h1b">Yes — H-1B</span
-                ><span class="opt" data-value="f1">Yes — F-1 / OPT</span
-                ><span class="opt" data-value="other">Yes — other</span
-                ><span class="opt" data-value="india">No, in India</span>
+                <button type="button" class="opt" data-value="U.S. — H-1B">Yes — H-1B</button
+                ><button type="button" class="opt" data-value="U.S. — F-1 / OPT">Yes — F-1 / OPT</button
+                ><button type="button" class="opt" data-value="U.S. — other status">Yes — other</button
+                ><button type="button" class="opt" data-value="India">No, in India</button>
               </div>
               <div class="estep-nav">
                 <button type="button" class="btn btn-ghost" data-prev>
@@ -149,9 +157,9 @@
             <div class="estep">
               <h3>Your primary goal?</h3>
               <div class="optrow" style="margin-top: 14px">
-                <span class="opt" data-value="res">U.S. residency</span
-                ><span class="opt" data-value="edu">Children's education</span
-                ><span class="opt" data-value="biz">Business / investment</span>
+                <button type="button" class="opt" data-value="U.S. residency">U.S. residency</button
+                ><button type="button" class="opt" data-value="Children's education">Children's education</button
+                ><button type="button" class="opt" data-value="Business / investment">Business / investment</button>
               </div>
               <div class="estep-nav">
                 <button type="button" class="btn btn-ghost" data-prev>
@@ -164,9 +172,9 @@
             <div class="estep">
               <h3>Your timeframe?</h3>
               <div class="optrow" style="margin-top: 14px">
-                <span class="opt" data-value="6">Within 6 months</span
-                ><span class="opt" data-value="12">6–12 months</span
-                ><span class="opt" data-value="res">Just researching</span>
+                <button type="button" class="opt" data-value="Within 6 months">Within 6 months</button
+                ><button type="button" class="opt" data-value="6–12 months">6–12 months</button
+                ><button type="button" class="opt" data-value="Just researching">Just researching</button>
               </div>
               <div class="estep-nav">
                 <button type="button" class="btn btn-ghost" data-prev>
@@ -178,23 +186,26 @@
             </div>
             <div class="estep">
               <h3>Where should we send your result?</h3>
-              <div class="fd"><label>Name</label><input required /></div>
+              <div class="fd"><label for="review-name">Name</label><input id="review-name" name="name" autocomplete="name" required /></div>
               <div class="fd">
-                <label>Email</label><input type="email" required />
+                <label for="review-email">Email</label><input id="review-email" name="email" type="email" autocomplete="email" required />
               </div>
               <div class="fd">
-                <label>Phone (WhatsApp)</label><input required />
+                <label for="review-phone">Phone (WhatsApp)</label><input id="review-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required />
               </div>
+              <div class="hp-field" aria-hidden="true"><label for="review-website">Website</label><input id="review-website" name="website" tabindex="-1" autocomplete="off" /></div>
+              <label class="consent-row" for="review-consent"><input id="review-consent" name="consent" type="checkbox" required /><span>I agree that The Calculus may use these details to respond to my enquiry, as described in the <a href="privacy.html">Privacy Notice</a>.</span></label>
               <div class="estep-nav">
                 <button type="button" class="btn btn-ghost" data-prev>
                   ← Back</button
                 ><button class="btn btn-gold" type="submit">
-                  See my result <span class="arr">→</span>
+                  <span data-submit-label>Request my readiness review</span> <span class="arr">→</span>
                 </button>
               </div>
+              <div class="form-status" data-form-status role="status" hidden></div>
               <p class="note">
                 Confidential. No documents needed. This tool qualifies your
-                enquiry — it does not make an eligibility decision.
+                enquiry—it does not make a legal eligibility decision.
               </p>
             </div>
           </form>
@@ -208,8 +219,8 @@
             <div class="nm">THE CALCULUS</div>
             <div class="tl">Experience. Trust. Global Vision.</div>
             <div style="margin-top: 12px; font-size: 13px">
-              A <span class="yrs">41-year</span> New Delhi advisory firm guiding
-              Indian families to U.S. permanent residency through EB-5.
+              A New Delhi advisory business with a legacy dating to 1985 and a
+              newer, separately defined EB-5 service line.
             </div>
           </div>
           <div class="fcol">
@@ -219,7 +230,7 @@
             ><a href="about.html">About</a><a href="faq.html">FAQ</a>
           </div>
           <div class="fcol">
-            <b>GET STARTED</b><a href="eligibility.html">Check eligibility</a
+            <b>GET STARTED</b><a href="eligibility.html">Readiness review</a
             ><a href="contact.html">Book a consultation</a
             ><a href="https://wa.me/919818781231" target="_blank" rel="noopener"
               >WhatsApp us</a
@@ -234,10 +245,10 @@
           </div>
         </div>
         <div class="disc">
-          The Calculus provides advisory services for the EB-5 Immigrant
-          Investor Program. This website provides general information, not legal
-          advice. Program terms and eligibility may change; immigration outcomes
-          are determined by U.S. authorities.
+          General information only—not legal, tax, securities, or investment
+          advice. EB-5 capital must remain at risk; immigration approval and
+          return of capital are never guaranteed.
+          <span class="legal-links"><a href="disclosures.html">Disclosures &amp; risk</a><a href="privacy.html">Privacy</a></span>
         </div>
         <div class="copyr">
           © <span id="yr">2026</span> The Calculus. All rights reserved.
@@ -255,6 +266,6 @@
           d="M12 2A10 10 0 0 0 3.5 17.5L2 22l4.6-1.5A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.2 1.1-1.7 1.1-.4 0-1 .1-3.2-.8-2.7-1.1-4.4-3.9-4.6-4.1-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.4-.3.6-.3h.5c.2 0 .4 0 .6.5l.7 1.8c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.7.9.8 1.6 1 1.9 1.2.2.1.4 0 .5-.1l.6-.8c.2-.2.3-.2.6-.1l1.7.8c.3.1.4.2.5.3.1.2.1.6-.1 1Z"
         /></svg
     ></a>
-    <script src="scripts.js"></script>
+    <script src="scripts.js?v=20260809"></script>
   </body>
 </html>

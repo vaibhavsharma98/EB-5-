@@ -1,5 +1,15 @@
 window.__ok = true;
 document.addEventListener("DOMContentLoaded", function () {
+  var pageOpenedAt = Date.now();
+  var main = document.querySelector("main") || document.querySelector("section");
+  if (main) {
+    if (!main.id) main.id = "main-content";
+    var skip = document.createElement("a");
+    skip.className = "skip-link";
+    skip.href = "#" + main.id;
+    skip.textContent = "Skip to content";
+    document.body.insertBefore(skip, document.body.firstChild);
+  }
   var topbar = document.getElementById("topbar");
   function onScroll() {
     if (topbar) topbar.classList.toggle("scrolled", window.scrollY > 40);
@@ -34,10 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
   var menu = document.getElementById("menu");
   if (burger && menu) {
     burger.setAttribute("aria-expanded", "false");
+    burger.setAttribute("aria-controls", "menu");
     burger.addEventListener("click", function () {
       var open = menu.classList.toggle("open");
       document.body.classList.toggle("menu-open", open);
       burger.setAttribute("aria-expanded", open ? "true" : "false");
+      burger.setAttribute("aria-label", open ? "Close menu" : "Menu");
       burger.textContent = open ? "✕" : "☰";
     });
     menu.querySelectorAll("a").forEach(function (a) {
@@ -45,15 +57,29 @@ document.addEventListener("DOMContentLoaded", function () {
         menu.classList.remove("open");
         document.body.classList.remove("menu-open");
         burger.setAttribute("aria-expanded", "false");
+        burger.setAttribute("aria-label", "Menu");
         burger.textContent = "☰";
       });
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && menu.classList.contains("open")) {
+        menu.classList.remove("open");
+        document.body.classList.remove("menu-open");
+        burger.setAttribute("aria-expanded", "false");
+        burger.setAttribute("aria-label", "Menu");
+        burger.textContent = "☰";
+        burger.focus();
+      }
     });
   }
 
   var here = location.pathname.split("/").pop() || "index.html";
   document.querySelectorAll(".menu a").forEach(function (a) {
     var href = a.getAttribute("href") || "";
-    if (href === here) a.classList.add("active");
+    if (href === here) {
+      a.classList.add("active");
+      a.setAttribute("aria-current", "page");
+    }
   });
 
   /* sticky mobile CTA bar (not on the contact page itself) */
@@ -312,22 +338,63 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   document.querySelectorAll(".optrow").forEach(function (row) {
+    row.querySelectorAll(".opt").forEach(function (option) {
+      option.setAttribute("aria-pressed", "false");
+    });
     row.addEventListener("click", function (e) {
       var o = e.target.closest(".opt");
       if (!o) return;
       row.querySelectorAll(".opt").forEach(function (x) {
         x.classList.remove("sel");
+        x.setAttribute("aria-pressed", "false");
       });
       o.classList.add("sel");
+      o.setAttribute("aria-pressed", "true");
       row.dataset.value = o.dataset.value || o.textContent;
     });
   });
+
+  function whatsappUrl(lines) {
+    return "https://wa.me/919818781231?text=" + encodeURIComponent(lines.join("\n"));
+  }
+
+  function responseError(response) {
+    if (response.ok) return response.json();
+    return response
+      .json()
+      .catch(function () {
+        return {};
+      })
+      .then(function (data) {
+        throw new Error(data.error || "We could not send your enquiry.");
+      });
+  }
+
+  function setFormStatus(status, message, success) {
+    if (!status) return;
+    status.hidden = !message;
+    status.classList.toggle("is-success", !!success);
+    status.textContent = message || "";
+  }
 
   var stepper = document.getElementById("stepper");
   if (stepper) {
     var steps = stepper.querySelectorAll(".estep");
     var bar = stepper.querySelector(".progress i");
+    var readinessForm = stepper.querySelector("form");
+    var readinessStatus = stepper.querySelector("[data-form-status]");
     var i = 0;
+    function setStepError(step, message) {
+      var error = step.querySelector(".step-error");
+      if (!error) {
+        error = document.createElement("div");
+        error.className = "step-error";
+        error.setAttribute("role", "alert");
+        step.appendChild(error);
+      }
+      error.textContent = message || "";
+      error.hidden = !message;
+    }
     function show(n) {
       steps.forEach(function (s, k) {
         s.classList.toggle("on", k === n);
@@ -336,98 +403,155 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     stepper.addEventListener("click", function (e) {
       if (e.target.closest("[data-next]")) {
+        e.preventDefault();
+        var currentStep = steps[i];
+        if (currentStep.querySelector(".optrow") && !currentStep.querySelector(".opt.sel")) {
+          setStepError(currentStep, "Choose one option to continue.");
+          currentStep.querySelector(".opt").focus();
+          return;
+        }
+        setStepError(currentStep, "");
         if (i < steps.length - 1) {
           i++;
           show(i);
         }
       } else if (e.target.closest("[data-prev]")) {
+        e.preventDefault();
         if (i > 0) {
           i--;
           show(i);
         }
-      } else if (e.target.closest('button[type="submit"]')) {
-        e.preventDefault();
-        /* compose the answers into a pre-filled WhatsApp enquiry so the lead actually reaches the firm */
-        var lines = ["Hello The Calculus — my EB-5 eligibility check:"];
-        stepper.querySelectorAll(".estep").forEach(function (st) {
-          var h = st.querySelector("h3"),
-            sel = st.querySelector(".opt.sel");
-          if (h && sel) lines.push(h.textContent + " " + sel.textContent);
-        });
-        stepper.querySelectorAll(".fd").forEach(function (fd) {
-          var lab = fd.querySelector("label"),
-            c = fd.querySelector("input");
-          if (lab && c && c.value) lines.push(lab.textContent + ": " + c.value);
-        });
-        var wa =
-          "https://wa.me/919818781231?text=" +
-          encodeURIComponent(lines.join("\n"));
-        stepper.innerHTML =
-          '<div class="ok"><b>Thank you.</b> Based on your answers, a personal consultation is the best next step — our team will contact you confidentially.<br><a class="btn btn-gold" style="margin-top:16px" href="' +
-          wa +
-          '" target="_blank" rel="noopener">Get my result faster on WhatsApp <span class="arr">→</span></a></div>';
       }
+    });
+
+    readinessForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      setFormStatus(readinessStatus, "", false);
+      if (!readinessForm.checkValidity()) {
+        readinessForm.reportValidity();
+        return;
+      }
+      var selected = Array.prototype.map.call(
+        stepper.querySelectorAll(".optrow"),
+        function (row) {
+          return row.dataset.value || "";
+        },
+      );
+      if (selected.some(function (value) { return !value; })) {
+        setFormStatus(readinessStatus, "Please answer every readiness question.", false);
+        return;
+      }
+
+      var submit = readinessForm.querySelector('button[type="submit"]');
+      var label = submit.querySelector("[data-submit-label]");
+      var payload = {
+        type: "eligibility",
+        name: readinessForm.elements.name.value.trim(),
+        email: readinessForm.elements.email.value.trim(),
+        phone: readinessForm.elements.phone.value.trim(),
+        website: readinessForm.elements.website.value,
+        consent: readinessForm.elements.consent.checked,
+        openedAt: pageOpenedAt,
+        answers: {
+          readiness: selected[0],
+          location: selected[1],
+          goal: selected[2],
+          timeframe: selected[3],
+        },
+      };
+      var lines = [
+        "Hello The Calculus — I completed the preliminary EB-5 readiness review:",
+        "Readiness: " + selected[0],
+        "Location: " + selected[1],
+        "Goal: " + selected[2],
+        "Timeframe: " + selected[3],
+        "Name: " + payload.name,
+        "Email: " + payload.email,
+        "Phone: " + payload.phone,
+      ];
+      submit.disabled = true;
+      label.textContent = "Sending securely…";
+      fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+        .then(responseError)
+        .then(function () {
+          stepper.innerHTML =
+            '<div class="ok"><b>Your readiness review has been received.</b> This is not a legal eligibility decision. Our team will contact you to arrange an appropriate next step.<br><a class="btn btn-gold" style="margin-top:16px" href="' +
+            whatsappUrl(lines) +
+            '" target="_blank" rel="noopener">Continue on WhatsApp <span class="arr">→</span></a></div>';
+        })
+        .catch(function (error) {
+          setFormStatus(readinessStatus, error.message + " You can use WhatsApp instead.", false);
+        })
+        .finally(function () {
+          submit.disabled = false;
+          label.textContent = "Request my readiness review";
+        });
     });
     show(0);
   }
 
   document.querySelectorAll("form[data-lead]").forEach(function (f) {
-    if (f.closest("#stepper"))
-      return; /* the stepper composes its own submission */
+    if (f.closest("#stepper")) return;
     f.addEventListener("submit", function (e) {
       e.preventDefault();
-      /* hand the enquiry to WhatsApp pre-filled — the site has no backend, so this is how the lead reaches the firm */
-      var lines = [
-        "Hello The Calculus — I would like to book a free EB-5 consultation.",
-      ];
-      f.querySelectorAll(".fd").forEach(function (fd) {
-        var lab = fd.querySelector("label"),
-          c = fd.querySelector("input,select,textarea");
-        if (lab && c && c.value && c.value.indexOf("Select") !== 0)
-          lines.push(lab.textContent + ": " + c.value);
-      });
-      var wa =
-        "https://wa.me/919818781231?text=" +
-        encodeURIComponent(lines.join("\n"));
-      var box = document.createElement("div");
-      box.className = "ok";
-      box.innerHTML =
-        '<b>Thank you.</b> We reply within one business day. For an instant response, send us your enquiry on WhatsApp — your details are already filled in.<br><a class="btn btn-gold" style="margin-top:16px" href="' +
-        wa +
-        '" target="_blank" rel="noopener">Send on WhatsApp <span class="arr">→</span></a>';
-      f.innerHTML = "";
-      f.appendChild(box);
-    });
-  });
-
-  var cd = document.querySelector(".countdown[data-deadline]");
-  if (cd) {
-    var cdT = new Date(cd.getAttribute("data-deadline")).getTime();
-    var eD = document.getElementById("cdD"),
-      eH = document.getElementById("cdH"),
-      eM = document.getElementById("cdM"),
-      eS = document.getElementById("cdS");
-    var cdTimer;
-    function cpad(n) {
-      return (n < 10 ? "0" : "") + n;
-    }
-    function ctick() {
-      var diff = cdT - Date.now();
-      if (diff <= 0) {
-        if (cdTimer) clearInterval(cdTimer);
-        cd.classList.add("cd-passed");
-        cd.innerHTML =
-          '<div class="cd-text"><span class="cd-eye">A note on timing</span><b>EB-5 program terms changed from October 2026. Speak with us for current guidance.</b></div><a class="btn btn-gold" href="contact.html">Talk to an advisor <span class="arr">&rarr;</span></a>';
+      var status = f.querySelector("[data-form-status]");
+      setFormStatus(status, "", false);
+      if (!f.checkValidity()) {
+        f.reportValidity();
         return;
       }
-      if (eD) eD.textContent = Math.floor(diff / 86400000);
-      if (eH) eH.textContent = cpad(Math.floor(diff / 3600000) % 24);
-      if (eM) eM.textContent = cpad(Math.floor(diff / 60000) % 60);
-      if (eS) eS.textContent = cpad(Math.floor(diff / 1000) % 60);
-    }
-    ctick();
-    cdTimer = setInterval(ctick, 1000);
-  }
+      var submit = f.querySelector('button[type="submit"]');
+      var label = submit.querySelector("[data-submit-label]");
+      var payload = {
+        type: f.dataset.lead || "contact",
+        name: f.elements.name.value.trim(),
+        email: f.elements.email.value.trim(),
+        phone: f.elements.phone.value.trim(),
+        readiness: f.elements.readiness ? f.elements.readiness.value : "",
+        message: f.elements.message ? f.elements.message.value.trim() : "",
+        website: f.elements.website.value,
+        consent: f.elements.consent.checked,
+        openedAt: pageOpenedAt,
+      };
+      var lines = [
+        "Hello The Calculus — I would like to request an EB-5 consultation.",
+        "Name: " + payload.name,
+        "Email: " + payload.email,
+        "Phone: " + payload.phone,
+      ];
+      if (payload.readiness) lines.push("Readiness: " + payload.readiness);
+      if (payload.message) lines.push("Message: " + payload.message);
+      submit.disabled = true;
+      label.textContent = "Sending securely…";
+      fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+        .then(responseError)
+        .then(function () {
+          var box = document.createElement("div");
+          box.className = "ok";
+          box.innerHTML =
+            '<b>Your consultation request has been received.</b> We aim to reply within one business day.<br><a class="btn btn-gold" style="margin-top:16px" href="' +
+            whatsappUrl(lines) +
+            '" target="_blank" rel="noopener">Continue on WhatsApp <span class="arr">→</span></a>';
+          f.innerHTML = "";
+          f.appendChild(box);
+        })
+        .catch(function (error) {
+          setFormStatus(status, error.message + " You can contact us on WhatsApp instead.", false);
+        })
+        .finally(function () {
+          submit.disabled = false;
+          label.textContent = "Book My Consultation";
+        });
+    });
+  });
 
   var y = document.getElementById("yr");
   if (y) y.textContent = new Date().getFullYear();
@@ -594,12 +718,13 @@ document.addEventListener("DOMContentLoaded", function () {
         var emailInput = accessForm.querySelector('[name="email"]');
         var countryInput = accessForm.querySelector('[name="countryCode"]');
         var phoneInput = accessForm.querySelector('[name="phone"]');
+        var consentInput = accessForm.querySelector('[name="consent"]');
         var submit = accessForm.querySelector('button[type="submit"]');
         var email = emailInput ? emailInput.value.trim() : "";
         var countryCode = countryInput ? countryInput.value : "";
         var phone = phoneInput ? phoneInput.value.replace(/\D/g, "") : "";
         var emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-        var phoneValid = /^\d{10}$/.test(phone);
+        var phoneValid = /^\d{7,15}$/.test(phone);
 
         if (emailInput) emailInput.setAttribute("aria-invalid", emailValid ? "false" : "true");
         if (phoneInput) phoneInput.setAttribute("aria-invalid", phoneValid ? "false" : "true");
@@ -616,8 +741,13 @@ document.addEventListener("DOMContentLoaded", function () {
           return;
         }
         if (!phoneValid) {
-          setAccessError("Enter a 10-digit phone number, then try again.");
+          setAccessError("Enter a valid national phone number, then try again.");
           phoneInput.focus();
+          return;
+        }
+        if (!consentInput || !consentInput.checked) {
+          setAccessError("Please review the Privacy Notice and provide consent.");
+          if (consentInput) consentInput.focus();
           return;
         }
 
@@ -632,6 +762,9 @@ document.addEventListener("DOMContentLoaded", function () {
             email: email,
             countryCode: countryCode,
             phone: phone,
+            website: accessForm.elements.website.value,
+            consent: consentInput.checked,
+            openedAt: pageOpenedAt,
           }),
         })
           .then(function (response) {
