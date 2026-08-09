@@ -1,5 +1,4 @@
 const assert = require("node:assert/strict");
-const nodemailer = require("nodemailer");
 const journeyHandler = require("../api/journey-access");
 const leadHandler = require("../api/lead");
 const { resetRateLimits } = require("../lib/lead-service");
@@ -33,7 +32,7 @@ function common(overrides = {}) {
 
 async function run() {
   resetRateLimits();
-  ["SMTP_HOST", "SMTP_PORT", "SMTP_SECURE", "SMTP_USER", "SMTP_PASS", "SMTP_FROM", "SMTP_TO", "SITE_ORIGIN"].forEach(
+  ["MS_TENANT_ID", "MS_CLIENT_ID", "MS_CLIENT_SECRET", "MS_SENDER_EMAIL", "LEAD_TO_EMAIL", "SITE_ORIGIN"].forEach(
     (name) => delete process.env[name],
   );
 
@@ -78,27 +77,36 @@ async function run() {
   assert.equal(previewOrigin.statusCode, 503);
 
   Object.assign(process.env, {
-    SMTP_HOST: "smtp.example.com",
-    SMTP_PORT: "465",
-    SMTP_SECURE: "true",
-    SMTP_USER: "test-user",
-    SMTP_PASS: "test-password",
-    SMTP_FROM: "The Calculus <website@example.com>",
-    SMTP_TO: "advisor@example.com",
+    MS_TENANT_ID: "test-tenant",
+    MS_CLIENT_ID: "test-client",
+    MS_CLIENT_SECRET: "test-secret",
+    MS_SENDER_EMAIL: "website@example.com",
+    LEAD_TO_EMAIL: "advisor@example.com",
   });
 
   const sentMessages = [];
-  nodemailer.createTransport = () => ({
-    async sendMail(message) {
-      sentMessages.push(message);
-    },
-  });
+  global.fetch = async (url, options) => {
+    if (url.includes("/oauth2/v2.0/token")) {
+      return {
+        ok: true,
+        status: 200,
+        async json() {
+          return { access_token: "test-access-token", expires_in: 3600 };
+        },
+      };
+    }
+    if (url.includes("graph.microsoft.com/v1.0/users/")) {
+      sentMessages.push(JSON.parse(options.body).message);
+      return { ok: true, status: 202 };
+    }
+    throw new Error(`Unexpected request: ${url}`);
+  };
 
   const journeyAccepted = await callApi(journeyHandler, "POST", validJourney);
   assert.equal(journeyAccepted.statusCode, 200);
   assert.equal(journeyAccepted.data.ok, true);
-  assert.equal(sentMessages.at(-1).replyTo, validJourney.email);
-  assert.match(sentMessages.at(-1).text, /\+91 9876543210/);
+  assert.equal(sentMessages.at(-1).replyTo[0].emailAddress.address, validJourney.email);
+  assert.match(sentMessages.at(-1).body.content, /\+91 9876543210/);
 
   const contactAccepted = await callApi(
     leadHandler,

@@ -10,7 +10,7 @@ no front-end build step.
   and 404.
 - Shared front end: `styles.css`, `home.css`, and `scripts.js`.
 - Lead APIs: `api/lead.js` and `api/journey-access.js`, backed by
-  `lib/lead-service.js` and Nodemailer.
+  `lib/lead-service.js` and scoped Microsoft Graph application access.
 - Hosting/security: `vercel.json` supplies browser security headers.
 - Search: canonical metadata and `sitemap.xml` target
   `https://thecalculusgroup.com`.
@@ -40,10 +40,10 @@ Import the repository with Framework Preset `Other`, no build command, and the
 repository root as the output. Configure every value in `.env.example` for each
 environment where forms must work:
 
-- `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURE`
-- `SMTP_USER`, `SMTP_PASS`
-- `SMTP_FROM` — a verified sender on the production domain
-- `SMTP_TO` — the monitored enquiry inbox
+- `MS_TENANT_ID`, `MS_CLIENT_ID`
+- `MS_CLIENT_SECRET` — the Entra application credential
+- `MS_SENDER_EMAIL` — the Exchange mailbox permitted by Application RBAC
+- `LEAD_TO_EMAIL` — the monitored enquiry inbox
 - `SITE_ORIGIN` — the canonical production origin
 
 The APIs accept same-origin Vercel Preview requests and the configured canonical

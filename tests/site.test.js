@@ -52,6 +52,13 @@ for (const page of publicPages) {
 const robots = fs.readFileSync(path.join(root, "robots.txt"), "utf8");
 assert.match(robots, /Sitemap:\s+https:\/\/thecalculusgroup\.com\/sitemap\.xml/i);
 
+const styles = fs.readFileSync(path.join(root, "styles.css"), "utf8");
+assert.match(
+  styles,
+  /\.access-card\s*\{[\s\S]*?max-height:\s*calc\(100dvh\s*-\s*48px\);[\s\S]*?overflow-y:\s*auto;/,
+  "Journey access dialog must remain scrollable at every viewport height",
+);
+
 const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
 const securityHeaders = new Map(
   vercel.headers.flatMap((rule) => rule.headers).map((header) => [header.key.toLowerCase(), header.value]),

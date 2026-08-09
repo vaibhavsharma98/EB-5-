@@ -6,8 +6,5 @@
   "scripts": {
     "test": "node tests/journey-access.test.js && node tests/site.test.js",
     "check": "node --check scripts.js && node --check lib/lead-service.js && npm test"
-  },
-  "dependencies": {
-    "nodemailer": "^9.0.5"
   }
 }

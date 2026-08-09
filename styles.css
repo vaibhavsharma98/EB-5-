@@ -1242,6 +1242,8 @@ body.journey-locked .access-modal {
   display: grid;
   place-items: center;
   padding: 24px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.28s ease;
@@ -1266,6 +1268,13 @@ body.journey-locked .access-modal {
   position: relative;
   z-index: 1;
   width: min(100%, 520px);
+  max-height: calc(100dvh - 48px);
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
   border-radius: 14px;
   padding: 34px;
   background:
@@ -1422,11 +1431,8 @@ body.journey-locked .access-modal {
   .access-card {
     width: min(100%, 440px);
     max-height: calc(100dvh - 20px);
-    overflow-y: auto;
-    overscroll-behavior: contain;
     padding: 18px 18px 16px;
     border-radius: 12px;
-    scrollbar-width: thin;
   }
   .access-kicker {
     font-size: 10px;
