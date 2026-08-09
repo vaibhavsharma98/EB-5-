@@ -1,0 +1,12 @@
+{
+  "name": "the-calculus-eb5-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "The Calculus EB-5 advisory website",
+  "scripts": {
+    "test": "node tests/journey-access.test.js"
+  },
+  "dependencies": {
+    "nodemailer": "^9.0.5"
+  }
+}

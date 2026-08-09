@@ -33,11 +33,10 @@
       });
     </script>
   </head>
-  <body>
+  <body class="journey-locked access-open">
     <div class="topbar solid" id="topbar">
       <div class="urgency">
-        Act before <b>30 September 2026</b> — petitions filed by this date may
-        be grandfathered under current EB-5 rules and investment amounts.
+        EB-5 program terms are expected to change from <b>October 2026</b>.
         <a href="contact.html">Talk to an advisor →</a>
       </div>
       <header id="hdr">
@@ -334,7 +333,7 @@
           </tr>
           <tr>
             <td>
-              Select project + prepare documents (incl. transfer of $800,000)
+              Select project and prepare supporting documents
             </td>
             <td>1–3 months</td>
           </tr>
@@ -366,10 +365,8 @@
         <div class="eyebrow reveal">Source of funds, simply</div>
         <div class="prose reveal d1">
           <p>
-            U.S. authorities must see that your invested capital was earned and
-            transferred lawfully — salary and savings, the sale of property or
-            shares, business income, a gift, or an inheritance, each supported
-            by clean documentation. Getting this right is where experienced
+            U.S. authorities require clear documentation showing a lawful source
+            of funds. Preparing that record correctly is where experienced
             advisory matters most, and it is where
             <b>The Calculus does the heavy lifting with you.</b>
           </p>
@@ -389,7 +386,7 @@
           confidential.
         </p>
         <a class="btn btn-gold" href="contact.html"
-          >Book a Free Consultation <span class="arr">→</span></a
+          >Book a Consultation <span class="arr">→</span></a
         >
       </div>
     </section>
@@ -427,12 +424,9 @@
         </div>
         <div class="disc">
           The Calculus provides advisory services for the EB-5 Immigrant
-          Investor Program. This website is for information only and is not an
-          offer to sell or a solicitation to buy any security, nor legal or
-          financial advice. EB-5 investments involve significant risk, including
-          possible loss of capital; immigration outcomes are determined by U.S.
-          authorities and are not guaranteed. Figures are current as of 2026 and
-          subject to change.
+          Investor Program. This website provides general information, not legal
+          advice. Program terms and eligibility may change; immigration outcomes
+          are determined by U.S. authorities.
         </div>
         <div class="copyr">
           © <span id="yr">2026</span> The Calculus. All rights reserved.
@@ -450,7 +444,7 @@
           d="M12 2A10 10 0 0 0 3.5 17.5L2 22l4.6-1.5A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.2 1.1-1.7 1.1-.4 0-1 .1-3.2-.8-2.7-1.1-4.4-3.9-4.6-4.1-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.4-.3.6-.3h.5c.2 0 .4 0 .6.5l.7 1.8c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.7.9.8 1.6 1 1.9 1.2.2.1.4 0 .5-.1l.6-.8c.2-.2.3-.2.6-.1l1.7.8c.3.1.4.2.5.3.1.2.1.6-.1 1Z"
         /></svg
     ></a>
-    <div class="access-modal" data-access-modal aria-hidden="true">
+    <div class="access-modal is-open" data-access-modal aria-hidden="false">
       <div class="access-backdrop"></div>
       <div
         class="access-card"
@@ -460,7 +454,7 @@
         tabindex="-1"
       >
         <div class="access-kicker">Private EB-5 roadmap</div>
-        <h2 id="access-title">Sign in to view the EB-5 journey.</h2>
+        <h2 id="access-title">Share your details to view the journey.</h2>
         <p>
           Access the detailed document list, India-specific timeline notes, and
           advisor follow-up pathway for your family's case.
@@ -470,29 +464,55 @@
           <li>India-specific timing and filing notes</li>
           <li>Confidential advisor review pathway</li>
         </ul>
-        <button class="google-access-btn" type="button" data-google-access>
-          <span class="google-mark" aria-hidden="true">G</span>
-          Continue with Google
-        </button>
-        <div class="access-divider"><span>or use phone number</span></div>
-        <form class="access-phone" data-phone-access>
-          <label for="access-phone">Phone number</label>
-          <div class="access-phone-row">
+        <form class="access-form" data-journey-access novalidate>
+          <div class="access-field">
+            <label for="access-email">Email address</label>
             <input
-              id="access-phone"
-              name="phone"
-              type="tel"
-              inputmode="tel"
-              autocomplete="tel"
-              placeholder="+91 98765 43210"
+              id="access-email"
+              name="email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="you@example.com"
               required
             />
-            <button type="submit">Continue</button>
           </div>
+          <div class="access-field">
+            <label for="access-phone">Phone number</label>
+            <div class="access-phone-row">
+              <select
+                id="access-country-code"
+                name="countryCode"
+                aria-label="Country code"
+                required
+              >
+                <option value="+91">India +91</option>
+                <option value="+1">USA/Canada +1</option>
+                <option value="+44">UK +44</option>
+                <option value="+61">Australia +61</option>
+                <option value="+65">Singapore +65</option>
+                <option value="+971">UAE +971</option>
+              </select>
+              <input
+                id="access-phone"
+                name="phone"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="tel-national"
+                placeholder="10-digit phone number"
+                maxlength="14"
+                required
+              />
+            </div>
+          </div>
+          <div class="access-error" data-access-error role="alert" hidden></div>
+          <button class="access-submit" type="submit">
+            <span>View the EB-5 journey</span>
+          </button>
         </form>
         <p class="access-note">
-          Live Google authentication can be connected here once the OAuth client
-          ID is ready.
+          No OTP or social sign-in. Your details remain confidential and are
+          used only for advisor follow-up.
         </p>
       </div>
     </div>

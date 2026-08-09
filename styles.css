@@ -421,7 +421,7 @@ header .wrap {
   position: relative;
   z-index: 3;
   width: 100%;
-  padding: 0 0 8vh;
+  padding-bottom: 8vh;
 }
 .hero h1 {
   color: #fff;
@@ -1223,6 +1223,15 @@ body.menu-open .mcta {
 body.access-open {
   overflow: hidden;
 }
+body.journey-locked {
+  background: #0d2038;
+}
+body.journey-locked > :not(.access-modal) {
+  visibility: hidden;
+}
+body.journey-locked .access-modal {
+  visibility: visible;
+}
 .access-modal {
   position: fixed;
   inset: 0;
@@ -1312,70 +1321,12 @@ body.access-open {
   background: var(--gold);
   box-shadow: 0 0 0 4px rgba(200, 162, 74, 0.14);
 }
-.google-access-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  min-height: 50px;
-  border-radius: 6px;
-  border: 1px solid #d3ddec;
-  background: #fff;
-  color: #1a2b3c;
-  font-family: "Inter", sans-serif;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(16, 42, 67, 0.08);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
-}
-.google-access-btn:hover {
-  transform: translateY(-2px);
-  border-color: rgba(71, 122, 185, 0.36);
-  box-shadow: 0 14px 34px rgba(16, 42, 67, 0.13);
-}
-.google-mark {
+.access-form {
   display: grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    #4285f4,
-    #34a853 46%,
-    #fbbc05 72%,
-    #ea4335
-  );
-  color: #fff;
-  font-family: Arial, sans-serif;
-  font-weight: 700;
-  line-height: 1;
+  gap: 16px;
+  margin-top: 24px;
 }
-.access-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 18px 0 14px;
-  color: #828c9f;
-  font-family: "Inter", sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.access-divider::before,
-.access-divider::after {
-  content: "";
-  height: 1px;
-  flex: 1;
-  background: var(--line);
-}
-.access-phone label {
+.access-field label {
   display: block;
   color: var(--ink);
   font-family: "Inter", sans-serif;
@@ -1383,38 +1334,67 @@ body.access-open {
   font-weight: 600;
   margin-bottom: 8px;
 }
-.access-phone-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 10px;
-}
-.access-phone input {
+.access-field input,
+.access-field select {
+  width: 100%;
   min-width: 0;
+  min-height: 48px;
   border: 1px solid #d3ddec;
   border-radius: 6px;
-  padding: 13px 14px;
+  background: #fff;
+  padding: 12px 14px;
   color: var(--ink);
   font-family: "Inter", sans-serif;
-  font-size: 15px;
+  font-size: 14px;
 }
-.access-phone input:focus {
-  border-color: rgba(71, 122, 185, 0.55);
+.access-field input:focus,
+.access-field select:focus {
+  border-color: rgba(71, 122, 185, 0.65);
   box-shadow: 0 0 0 3px rgba(71, 122, 185, 0.12);
   outline: none;
 }
-.access-phone button {
+.access-field input[aria-invalid="true"] {
+  border-color: var(--cta-red);
+  box-shadow: 0 0 0 3px rgba(158, 48, 57, 0.1);
+}
+.access-phone-row {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.46fr) 1fr;
+  gap: 10px;
+}
+.access-error {
+  border-left: 3px solid var(--cta-red);
+  border-radius: 4px;
+  background: rgba(158, 48, 57, 0.07);
+  color: #842832;
+  font-family: "Inter", sans-serif;
+  font-size: 12.5px;
+  line-height: 1.5;
+  padding: 10px 12px;
+}
+.access-error[hidden] {
+  display: none;
+}
+.access-submit {
+  min-height: 50px;
   border: 0;
   border-radius: 6px;
-  padding: 0 18px;
   background: var(--cta-red);
   color: #fff;
   font-family: "Inter", sans-serif;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease;
 }
-.access-phone button:hover {
+.access-submit:hover {
   background: var(--cta-red-d);
+}
+.access-submit:disabled {
+  cursor: wait;
+  opacity: 0.7;
 }
 .access-note {
   margin-top: 16px;
@@ -1443,9 +1423,12 @@ body.access-open {
   .access-phone-row {
     grid-template-columns: 1fr;
   }
-  .access-phone button {
-    min-height: 46px;
-  }
+}
+
+.leadership-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 760px);
+  margin-top: 40px;
 }
 
 /* --- reveal + whatsapp --- */

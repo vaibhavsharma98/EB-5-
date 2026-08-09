@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var mcta = document.createElement("div");
     mcta.className = "mcta";
     mcta.innerHTML =
-      '<a class="btn btn-gold" href="contact.html">Book a Free Consultation <span class="arr">→</span></a>';
+      '<a class="btn btn-gold" href="contact.html">Book a Consultation <span class="arr">→</span></a>';
     document.body.appendChild(mcta);
   }
 
@@ -81,6 +81,93 @@ document.addEventListener("DOMContentLoaded", function () {
       el.style.transitionDelay = i * 85 + "ms";
     });
   });
+
+  document.querySelectorAll("[data-difference]").forEach(function (explorer) {
+    var tabs = Array.prototype.slice.call(
+      explorer.querySelectorAll("[data-diff-tab]"),
+    );
+    var panels = Array.prototype.slice.call(
+      explorer.querySelectorAll(".diff-panel"),
+    );
+
+    function selectDifference(tab, moveFocus) {
+      var panelId = tab.getAttribute("data-diff-tab");
+      tabs.forEach(function (item) {
+        var selected = item === tab;
+        item.classList.toggle("active", selected);
+        item.setAttribute("aria-selected", selected ? "true" : "false");
+        item.tabIndex = selected ? 0 : -1;
+      });
+      panels.forEach(function (panel) {
+        var selected = panel.id === panelId;
+        panel.hidden = !selected;
+        panel.classList.toggle("active", selected);
+      });
+      if (moveFocus) tab.focus();
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        selectDifference(tab, false);
+      });
+      tab.addEventListener("keydown", function (event) {
+        if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+        event.preventDefault();
+        var direction = event.key === "ArrowDown" ? 1 : -1;
+        var nextIndex = (tabs.indexOf(tab) + direction + tabs.length) % tabs.length;
+        selectDifference(tabs[nextIndex], true);
+      });
+    });
+    if (tabs[0]) selectDifference(tabs[0], false);
+  });
+
+  document
+    .querySelectorAll("[data-journey-preview]")
+    .forEach(function (preview) {
+      var steps = Array.prototype.slice.call(
+        preview.querySelectorAll("[data-journey-step]"),
+      );
+      var section = preview.closest(".journey-home");
+      var count = section && section.querySelector(".jp-progress-count");
+      var label = section && section.querySelector(".jp-progress-label");
+      var progress = section && section.querySelector(".jp-progress-track i");
+
+      function selectJourney(index, moveFocus) {
+        steps.forEach(function (step, stepIndex) {
+          var selected = stepIndex === index;
+          step.classList.toggle("active", selected);
+          step.setAttribute("aria-pressed", selected ? "true" : "false");
+          step.tabIndex = selected ? 0 : -1;
+        });
+        if (count) count.textContent = "Step " + (index + 1) + " of " + steps.length;
+        if (label) label.textContent = steps[index].querySelector("h4").textContent;
+        if (progress) progress.style.width = ((index + 1) / steps.length) * 100 + "%";
+        if (moveFocus) steps[index].focus();
+      }
+
+      steps.forEach(function (step, index) {
+        step.addEventListener("click", function () {
+          selectJourney(index, false);
+        });
+        step.addEventListener("keydown", function (event) {
+          var nextIndex = index;
+          if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+            nextIndex = (index + 1) % steps.length;
+          } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+            nextIndex = (index - 1 + steps.length) % steps.length;
+          } else if (event.key === "Home") {
+            nextIndex = 0;
+          } else if (event.key === "End") {
+            nextIndex = steps.length - 1;
+          } else if (event.key !== "Enter" && event.key !== " ") {
+            return;
+          }
+          event.preventDefault();
+          selectJourney(nextIndex, true);
+        });
+      });
+      if (steps[0]) selectJourney(0, false);
+    });
 
   function countEl(el) {
     if (el.__counted) return;
@@ -330,7 +417,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (cdTimer) clearInterval(cdTimer);
         cd.classList.add("cd-passed");
         cd.innerHTML =
-          '<div class="cd-text"><span class="cd-eye">A note on timing</span><b>The 30 September 2026 filing window has passed. Speak with us for the current EB-5 rules and investment amounts.</b></div><a class="btn btn-gold" href="contact.html">Talk to an advisor <span class="arr">&rarr;</span></a>';
+          '<div class="cd-text"><span class="cd-eye">A note on timing</span><b>EB-5 program terms changed from October 2026. Speak with us for current guidance.</b></div><a class="btn btn-gold" href="contact.html">Talk to an advisor <span class="arr">&rarr;</span></a>';
         return;
       }
       if (eD) eD.textContent = Math.floor(diff / 86400000);
@@ -468,37 +555,110 @@ document.addEventListener("DOMContentLoaded", function () {
     var accessCard = accessModal.querySelector(".access-card");
     var accessKey = "tcJourneyAccessGranted";
     var accessShown = false;
+    var accessForm = accessModal.querySelector("[data-journey-access]");
+    var accessError = accessModal.querySelector("[data-access-error]");
+
+    function setAccessError(message) {
+      if (!accessError) return;
+      accessError.textContent = message;
+      accessError.hidden = !message;
+    }
     function openAccessModal() {
       if (accessShown || sessionStorage.getItem(accessKey) === "1") return;
       accessShown = true;
       accessModal.classList.add("is-open");
       accessModal.setAttribute("aria-hidden", "false");
       document.body.classList.add("access-open");
+      document.body.classList.add("journey-locked");
       if (accessCard) accessCard.focus();
     }
     function grantAccess() {
       accessModal.classList.remove("is-open");
       accessModal.setAttribute("aria-hidden", "true");
       document.body.classList.remove("access-open");
+      document.body.classList.remove("journey-locked");
       sessionStorage.setItem(accessKey, "1");
     }
-    accessModal.querySelectorAll("[data-google-access]").forEach(function (el) {
-      el.addEventListener("click", function () {
-        grantAccess();
+
+    if (sessionStorage.getItem(accessKey) === "1") {
+      grantAccess();
+    } else {
+      setTimeout(openAccessModal, 250);
+    }
+
+    if (accessForm) {
+      accessForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        setAccessError("");
+
+        var emailInput = accessForm.querySelector('[name="email"]');
+        var countryInput = accessForm.querySelector('[name="countryCode"]');
+        var phoneInput = accessForm.querySelector('[name="phone"]');
+        var submit = accessForm.querySelector('button[type="submit"]');
+        var email = emailInput ? emailInput.value.trim() : "";
+        var countryCode = countryInput ? countryInput.value : "";
+        var phone = phoneInput ? phoneInput.value.replace(/\D/g, "") : "";
+        var emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+        var phoneValid = /^\d{10}$/.test(phone);
+
+        if (emailInput) emailInput.setAttribute("aria-invalid", emailValid ? "false" : "true");
+        if (phoneInput) phoneInput.setAttribute("aria-invalid", phoneValid ? "false" : "true");
+
+        if (!email || !phone) {
+          setAccessError(
+            "Access was not granted because both email and phone are required. Add them and retry anytime.",
+          );
+          return;
+        }
+        if (!emailValid) {
+          setAccessError("Enter a valid email address, then try again.");
+          emailInput.focus();
+          return;
+        }
+        if (!phoneValid) {
+          setAccessError("Enter a 10-digit phone number, then try again.");
+          phoneInput.focus();
+          return;
+        }
+
+        submit.disabled = true;
+        submit.classList.add("is-loading");
+        submit.querySelector("span").textContent = "Submitting details...";
+
+        fetch("/api/journey-access", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: email,
+            countryCode: countryCode,
+            phone: phone,
+          }),
+        })
+          .then(function (response) {
+            if (!response.ok) {
+              return response.json().catch(function () {
+                return {};
+              }).then(function (data) {
+                throw new Error(data.error || "Submission failed");
+              });
+            }
+            return response.json();
+          })
+          .then(function () {
+            grantAccess();
+          })
+          .catch(function () {
+            setAccessError(
+              "We couldn't submit your details, so access remains locked. Please retry anytime.",
+            );
+          })
+          .finally(function () {
+            submit.disabled = false;
+            submit.classList.remove("is-loading");
+            submit.querySelector("span").textContent = "View the EB-5 journey";
+          });
       });
-    });
-    accessModal
-      .querySelectorAll("[data-phone-access]")
-      .forEach(function (form) {
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          var phone = form.querySelector('input[type="tel"]');
-          if (!phone || !phone.value.trim()) return;
-          sessionStorage.setItem("tcJourneyAccessPhone", phone.value.trim());
-          grantAccess();
-        });
-      });
-    setTimeout(openAccessModal, 250);
+    }
   }
 
   /* ===== proof strip animated counter ===== */

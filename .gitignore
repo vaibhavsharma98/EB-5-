@@ -8,3 +8,6 @@ Thumbs.db
 # Node / Vercel (if tooling is added later)
 node_modules/
 .vercel
+.env
+.env.local
+.env.*.local
