@@ -677,7 +677,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var accessModal = document.querySelector("[data-access-modal]");
   if (accessModal) {
     var accessCard = accessModal.querySelector(".access-card");
-    var accessKey = "tcJourneyAccessGranted";
     var accessShown = false;
     var accessForm = accessModal.querySelector("[data-journey-access]");
     var accessError = accessModal.querySelector("[data-access-error]");
@@ -688,7 +687,7 @@ document.addEventListener("DOMContentLoaded", function () {
       accessError.hidden = !message;
     }
     function openAccessModal() {
-      if (accessShown || sessionStorage.getItem(accessKey) === "1") return;
+      if (accessShown) return;
       accessShown = true;
       accessModal.classList.add("is-open");
       accessModal.setAttribute("aria-hidden", "false");
@@ -701,14 +700,9 @@ document.addEventListener("DOMContentLoaded", function () {
       accessModal.setAttribute("aria-hidden", "true");
       document.body.classList.remove("access-open");
       document.body.classList.remove("journey-locked");
-      sessionStorage.setItem(accessKey, "1");
     }
 
-    if (sessionStorage.getItem(accessKey) === "1") {
-      grantAccess();
-    } else {
-      setTimeout(openAccessModal, 250);
-    }
+    setTimeout(openAccessModal, 250);
 
     if (accessForm) {
       accessForm.addEventListener("submit", function (event) {

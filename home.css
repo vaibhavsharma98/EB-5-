@@ -3065,16 +3065,15 @@ footer {
   }
 }
 
-/* Concise homepage: the detailed service, relocation and FAQ material lives
-   on dedicated pages exposed through the primary menu. */
-.home-short .journey-home ~ section:not(.ctaband) {
-  display: none;
-}
-.home-short .trustbar {
-  display: none;
-}
-
 @media (max-width: 900px) {
+  /* Keep the mobile homepage concise while preserving the complete desktop
+     experience and the dedicated detail pages. */
+  .home-short .journey-home ~ section:not(.ctaband) {
+    display: none;
+  }
+  .home-short .trustbar {
+    display: none;
+  }
   .home-short .stats,
   .home-short section.ivory,
   .home-short .journey-home {

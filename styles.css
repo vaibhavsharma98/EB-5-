@@ -287,7 +287,7 @@ header .wrap {
   display: none;
 }
 .menu-extra {
-  display: none;
+  display: block;
 }
 .menu a {
   font-family: "Inter", sans-serif;
@@ -1639,10 +1639,21 @@ body.journey-locked .access-modal {
     transform: none;
   }
 }
-@media (max-width: 900px) {
-  .wrap {
-    padding: 0 22px;
+@media (min-width: 1151px) and (max-width: 1350px) {
+  header .wrap {
+    padding: 0 28px;
   }
+  .menu {
+    gap: 18px;
+  }
+  .menu a {
+    font-size: 14px;
+  }
+  .nav .btn-gold {
+    padding: 10px 14px;
+  }
+}
+@media (max-width: 1150px) {
   .menu {
     position: fixed;
     inset: 0 0 0 auto;
@@ -1688,6 +1699,11 @@ body.journey-locked .access-modal {
   }
   .menu-extra {
     display: block;
+  }
+}
+@media (max-width: 900px) {
+  .wrap {
+    padding: 0 22px;
   }
   .brand {
     flex: none;

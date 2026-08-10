@@ -53,10 +53,27 @@ const robots = fs.readFileSync(path.join(root, "robots.txt"), "utf8");
 assert.match(robots, /Sitemap:\s+https:\/\/thecalculusgroup\.com\/sitemap\.xml/i);
 
 const styles = fs.readFileSync(path.join(root, "styles.css"), "utf8");
+const homeStyles = fs.readFileSync(path.join(root, "home.css"), "utf8");
+const scripts = fs.readFileSync(path.join(root, "scripts.js"), "utf8");
 assert.match(
   styles,
   /\.access-card\s*\{[\s\S]*?max-height:\s*calc\(100dvh\s*-\s*48px\);[\s\S]*?overflow-y:\s*auto;/,
   "Journey access dialog must remain scrollable at every viewport height",
+);
+assert.match(
+  styles,
+  /\.menu-extra\s*\{\s*display:\s*block;/,
+  "Services and FAQs must remain discoverable in the primary navigation",
+);
+assert.match(
+  homeStyles,
+  /@media\s*\(max-width:\s*900px\)[\s\S]*?\.home-short \.journey-home ~ section:not\(\.ctaband\)\s*\{\s*display:\s*none;/,
+  "Homepage shortening must remain limited to the mobile breakpoint",
+);
+assert.doesNotMatch(
+  scripts,
+  /sessionStorage[\s\S]*?tcJourneyAccessGranted|tcJourneyAccessGranted[\s\S]*?sessionStorage/,
+  "Journey access must not be bypassed by an earlier browser-session grant",
 );
 
 const vercel = JSON.parse(fs.readFileSync(path.join(root, "vercel.json"), "utf8"));
