@@ -27,13 +27,13 @@
     <meta property="og:url" content="https://thecalculusgroup.com/" />
     <meta
       property="og:image"
-      content="https://thecalculusgroup.com/assets/hero1.jpg"
+      content="https://thecalculusgroup.com/assets/hero-liberty.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <link
       rel="preload"
       as="image"
-      href="assets/hero1.jpg"
+      href="assets/hero-liberty.jpg"
       fetchpriority="high"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -42,8 +42,8 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=20260809" />
-    <link rel="stylesheet" href="home.css?v=20260810-hero-blue" />
+    <link rel="stylesheet" href="styles.css?v=20260810-neutral-red" />
+    <link rel="stylesheet" href="home.css?v=20260810-liberty-short" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -52,7 +52,7 @@
         "alternateName": "The Calculus Group",
         "url": "https://thecalculusgroup.com/",
         "logo": "https://thecalculusgroup.com/assets/logo-gold.svg",
-        "image": "https://thecalculusgroup.com/assets/hero1.jpg",
+        "image": "https://thecalculusgroup.com/assets/hero-liberty.jpg",
         "description": "New Delhi advisory firm providing EB-5 process education, document coordination, and independent professional referrals.",
         "foundingDate": "1985",
         "telephone": "+91 98187 81231",
@@ -80,7 +80,7 @@
       });
     </script>
   </head>
-  <body>
+  <body class="home-short">
     <div class="topbar solid" id="topbar">
       <div class="urgency">
         <span class="urgency-label">Program note</span>
@@ -105,13 +105,13 @@
             ><a href="why-us.html">Why Us</a
             ><a href="beyond.html">Beyond the Green Card</a
             ><a href="about.html">About</a>
-            <a href="contact.html" class="btn btn-gold menu-only"
-              >Book a Consultation <span class="arr">→</span></a
+            <a href="services.html" class="menu-extra">Services</a><a href="faq.html" class="menu-extra">FAQs</a><a href="contact.html" class="btn btn-gold menu-only"
+              >Book Consultation <span class="arr">→</span></a
             >
           </nav>
           <div class="nav-right">
             <a href="contact.html" class="btn btn-gold"
-              >Book a Consultation <span class="arr">→</span></a
+              >Book Consultation <span class="arr">→</span></a
             >
           </div>
         </div>
@@ -119,22 +119,15 @@
     </div>
 
     <section class="hero">
-      <!-- Motion hero: flag video (autoplays muted & loops). The poster shows instantly and is
-       also the fallback for reduced-motion users / browsers that can't play the file.
-       To swap in a different clip (e.g. statue + city + flag), replace assets/hero-flag.mp4
-       and regenerate the poster — no markup change needed. -->
+      <!-- A still Statue of Liberty opening keeps the first impression focused,
+       recognisable and fast on mobile connections. -->
       <div class="hero-media-frame">
-        <video
+        <img
           class="hero-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="auto"
-          poster="assets/hero-flag-poster.jpg"
-        >
-          <source src="assets/hero-flag.mp4" type="video/mp4" />
-        </video>
+          src="assets/hero-liberty.jpg"
+          alt=""
+          fetchpriority="high"
+        />
       </div>
       <!-- Image slideshow temporarily removed — video is the sole hero background.
        To restore the image fallback, uncomment this block:
@@ -195,7 +188,7 @@
               transform="rotate(20 1150 300)"
             />
           </g>
-          <ellipse cx="1186" cy="226" rx="9" ry="14" fill="#caa24b" />
+          <ellipse cx="1186" cy="226" rx="9" ry="14" fill="#9aa3ad" />
           <rect y="600" width="1300" height="60" fill="#bcd2de" />
           <g stroke="#d3e3ea" stroke-width="2" opacity="0.6">
             <line x1="0" y1="620" x2="1300" y2="620" />
@@ -206,7 +199,7 @@
       <div class="wrap hero-inner">
         <div class="eyebrow reveal">Business legacy since 1985 · EB-5 advisory today</div>
         <h1 class="reveal d1">
-          Your family's path to a<br /><span class="hero-green-card"
+          Your family's path to<br /><span class="hero-green-card"
             >U.S. Green Card.</span
           >
         </h1>
@@ -218,7 +211,7 @@
         </p>
         <div class="cta-row reveal d3">
           <a class="btn btn-gold" href="contact.html"
-            >Book a Consultation <span class="arr">→</span></a
+            >Book Consultation <span class="arr">→</span></a
           ><a class="tlink" href="eligibility.html">Preliminary readiness review →</a>
         </div>
         <div class="micro reveal d4">
@@ -1844,7 +1837,7 @@
           details are handled under our privacy notice.
         </p>
         <a class="btn btn-gold" href="contact.html"
-          >Book a Consultation <span class="arr">→</span></a
+          >Book Consultation <span class="arr">→</span></a
         >
       </div>
     </section>
@@ -1869,7 +1862,7 @@
           </div>
           <div class="fcol">
               <b>GET STARTED</b><a href="eligibility.html">Readiness review</a
-            ><a href="contact.html">Book a consultation</a
+            ><a href="contact.html">Book Consultation</a
             ><a href="https://wa.me/919818781231" target="_blank" rel="noopener"
               >WhatsApp us</a
             >
@@ -1905,6 +1898,6 @@
           d="M12 2A10 10 0 0 0 3.5 17.5L2 22l4.6-1.5A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.2 1.1-1.7 1.1-.4 0-1 .1-3.2-.8-2.7-1.1-4.4-3.9-4.6-4.1-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.4-.3.6-.3h.5c.2 0 .4 0 .6.5l.7 1.8c.1.2.1.4 0 .5l-.4.6c-.1.2-.3.3-.1.6.1.3.7 1.1 1.4 1.7.9.8 1.6 1 1.9 1.2.2.1.4 0 .5-.1l.6-.8c.2-.2.3-.2.6-.1l1.7.8c.3.1.4.2.5.3.1.2.1.6-.1 1Z"
         /></svg
     ></a>
-    <script src="scripts.js?v=20260809"></script>
+    <script src="scripts.js?v=20260810-liberty"></script>
   </body>
 </html>

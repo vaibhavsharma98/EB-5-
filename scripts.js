@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("load", setTopbarH);
 
   var heroVideo = document.querySelector(".hero-video");
-  if (heroVideo) {
+  if (heroVideo && heroVideo.tagName === "VIDEO") {
     function slowHeroVideo() {
       heroVideo.playbackRate = 0.65;
     }
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var mcta = document.createElement("div");
     mcta.className = "mcta";
     mcta.innerHTML =
-      '<a class="btn btn-gold" href="contact.html">Book a Consultation <span class="arr">→</span></a>';
+      '<a class="btn btn-gold" href="contact.html">Book Consultation <span class="arr">→</span></a>';
     document.body.appendChild(mcta);
   }
 
@@ -272,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function () {
   /* hero video — nudge autoplay (some browsers need an explicit play() after canplay).
      On failure, hide the <video> so its poster / the image slideshow shows through. */
   var heroVideo = document.querySelector(".hero-video");
-  if (heroVideo) {
+  if (heroVideo && heroVideo.tagName === "VIDEO") {
     var kick = function () {
       var p = heroVideo.play();
       if (p && p.catch) p.catch(function () {});
@@ -548,7 +548,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .finally(function () {
           submit.disabled = false;
-          label.textContent = "Book My Consultation";
+          label.textContent = "Book Consultation";
         });
     });
   });

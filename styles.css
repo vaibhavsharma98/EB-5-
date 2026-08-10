@@ -3,9 +3,9 @@
   --navy: rgba(71, 122, 185, 1);
   --navy-d: #2e5f98;
   --navy-2: #6f9bd0;
-  --gold: #c8a24a;
-  --gold-d: #b8912e;
-  --gold-s: #d4b86a;
+  --gold: #c9ced4;
+  --gold-d: #59636f;
+  --gold-s: #eef1f4;
   --ivory: #f8fafd;
   --ivory-2: #f3f7fb;
   --ink: #1a2b3c;
@@ -13,8 +13,8 @@
   --line: #e2e8f0;
   --line-2: #edf2f7;
   --maxw: 1440px;
-  --cta-red: #9e3039; /* deep claret — sits in the same tonal register as the navy */
-  --cta-red-d: #822530;
+  --cta-red: #da291c;
+  --cta-red-d: #b51f16;
 }
 * {
   margin: 0;
@@ -123,7 +123,7 @@ video {
 }
 .btn-gold:hover {
   background: var(--cta-red-d);
-  box-shadow: 0 8px 24px rgba(158, 48, 57, 0.25);
+  box-shadow: 0 8px 24px rgba(218, 41, 28, 0.25);
   transform: translateY(-2px);
 }
 .btn-gold .arr {
@@ -167,7 +167,7 @@ video {
 .yrs {
   font-weight: 600;
   color: var(--gold-d);
-  background: linear-gradient(transparent 58%, rgba(200, 162, 74, 0.22) 0);
+  background: linear-gradient(transparent 58%, rgba(154, 163, 173, 0.22) 0);
   padding: 0 2px;
   border-radius: 2px;
   white-space: nowrap;
@@ -180,7 +180,7 @@ footer .yrs,
 .pb-primary .yrs,
 .faq-luxury .yrs {
   color: var(--gold-s);
-  background: linear-gradient(transparent 58%, rgba(200, 162, 74, 0.28) 0);
+  background: linear-gradient(transparent 58%, rgba(154, 163, 173, 0.28) 0);
 }
 /* heading variant — gold colour only (a marker sweep is too heavy on display type) */
 .yrs-h {
@@ -284,6 +284,9 @@ header .wrap {
   font-size: clamp(13px, 0.23vw + 10.5px, 15px);
 }
 .menu-only {
+  display: none;
+}
+.menu-extra {
   display: none;
 }
 .menu a {
@@ -912,7 +915,7 @@ section {
 .form textarea:focus {
   outline: none;
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(200, 162, 74, 0.18);
+  box-shadow: 0 0 0 3px rgba(154, 163, 173, 0.18);
 }
 .form .btn-gold {
   width: 100%;
@@ -1084,14 +1087,14 @@ footer {
 a.cc-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 30px rgba(16, 42, 67, 0.1);
-  border-color: rgba(200, 162, 74, 0.45);
+  border-color: rgba(154, 163, 173, 0.45);
 }
 .cc-ic {
   flex: none;
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: rgba(200, 162, 74, 0.1);
+  background: rgba(154, 163, 173, 0.1);
   color: var(--gold-d);
   display: grid;
   place-items: center;
@@ -1209,7 +1212,7 @@ button:focus-visible,
   display: none;
   padding: 10px 14px;
   background: rgba(11, 25, 41, 0.97);
-  border-top: 1px solid rgba(200, 162, 74, 0.4);
+  border-top: 1px solid rgba(154, 163, 173, 0.4);
   box-shadow: 0 -6px 24px rgba(9, 15, 34, 0.35);
 }
 .mcta .btn {
@@ -1331,7 +1334,7 @@ body.journey-locked .access-modal {
   height: 8px;
   border-radius: 50%;
   background: var(--gold);
-  box-shadow: 0 0 0 4px rgba(200, 162, 74, 0.14);
+  box-shadow: 0 0 0 4px rgba(154, 163, 173, 0.14);
 }
 .access-form {
   display: grid;
@@ -1367,7 +1370,7 @@ body.journey-locked .access-modal {
 }
 .access-field input[aria-invalid="true"] {
   border-color: var(--cta-red);
-  box-shadow: 0 0 0 3px rgba(158, 48, 57, 0.1);
+  box-shadow: 0 0 0 3px rgba(218, 41, 28, 0.1);
 }
 .access-phone-row {
   display: grid;
@@ -1377,8 +1380,8 @@ body.journey-locked .access-modal {
 .access-error {
   border-left: 3px solid var(--cta-red);
   border-radius: 4px;
-  background: rgba(158, 48, 57, 0.07);
-  color: #842832;
+  background: rgba(218, 41, 28, 0.07);
+  color: #b51f16;
   font-family: "Inter", sans-serif;
   font-size: 12.5px;
   line-height: 1.5;
@@ -1461,7 +1464,7 @@ body.journey-locked .access-modal {
     top: 0.55em;
     width: 7px;
     height: 7px;
-    box-shadow: 0 0 0 3px rgba(200, 162, 74, 0.14);
+    box-shadow: 0 0 0 3px rgba(154, 163, 173, 0.14);
   }
   .access-form {
     gap: 10px;
@@ -1683,8 +1686,18 @@ body.journey-locked .access-modal {
     display: inline-flex;
     margin-top: 12px;
   }
+  .menu-extra {
+    display: block;
+  }
   .brand {
     flex: none;
+  }
+  .brand .logo {
+    height: 40px;
+  }
+  .brand .nm {
+    font-size: clamp(19px, 5vw, 22px);
+    letter-spacing: 3.2px;
   }
   .hero h1 {
     font-size: 38px;
@@ -2018,13 +2031,13 @@ body.journey-locked .access-modal {
 }
 @keyframes node-pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(200, 162, 74, 0.4);
+    box-shadow: 0 0 0 0 rgba(154, 163, 173, 0.4);
   }
   70% {
-    box-shadow: 0 0 0 10px rgba(200, 162, 74, 0);
+    box-shadow: 0 0 0 10px rgba(154, 163, 173, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(200, 162, 74, 0);
+    box-shadow: 0 0 0 0 rgba(154, 163, 173, 0);
   }
 }
 
@@ -2175,7 +2188,7 @@ body.journey-locked .access-modal {
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: rgba(200, 162, 74, 0.1);
+  background: rgba(154, 163, 173, 0.1);
   color: var(--gold);
   margin-bottom: 16px;
 }
@@ -2328,7 +2341,7 @@ body.journey-locked .access-modal {
 }
 .jstep:hover .jcirc {
   transform: scale(1.05);
-  background: rgba(200, 162, 74, 0.12);
+  background: rgba(154, 163, 173, 0.12);
 }
 .jcirc svg {
   width: 58px;
@@ -2445,7 +2458,7 @@ body.journey-locked .access-modal {
 }
 .diff-sec .beyond li:hover {
   padding-left: 32px;
-  background: rgba(200, 162, 74, 0.05);
+  background: rgba(154, 163, 173, 0.05);
 }
 
 /* ===== firm-history timeline: year nodes ===== */
@@ -2613,7 +2626,7 @@ body.journey-locked .access-modal {
   margin-bottom: 26px;
   padding: 8px 12px;
   border-radius: 6px;
-  background: rgba(200, 162, 74, 0.11);
+  background: rgba(154, 163, 173, 0.11);
   color: var(--gold-d);
   font-size: 12px;
   font-weight: 600;
@@ -2672,7 +2685,7 @@ body.journey-locked .access-modal {
   color: var(--gold-d);
 }
 .source-list a:hover {
-  border-color: rgba(200, 162, 74, 0.65);
+  border-color: rgba(154, 163, 173, 0.65);
   box-shadow: 0 10px 30px rgba(26, 43, 60, 0.07);
 }
 
@@ -2708,7 +2721,7 @@ body.journey-locked .access-modal {
 .form-status,
 .step-error {
   margin-top: 12px;
-  color: #9e3039;
+  color: #da291c;
   font-size: 12.5px;
   line-height: 1.5;
 }
@@ -2727,7 +2740,7 @@ body.journey-locked .access-modal {
 }
 .opt[aria-pressed="true"] {
   border-color: var(--gold);
-  background: rgba(200, 162, 74, 0.09);
+  background: rgba(154, 163, 173, 0.09);
   color: var(--navy-d);
 }
 
