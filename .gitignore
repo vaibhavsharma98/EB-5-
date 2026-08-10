@@ -5,6 +5,7 @@ Thumbs.db
 .vscode/
 .idea/
 *.log
+output/
 # Node / Vercel (if tooling is added later)
 node_modules/
 .vercel
