@@ -1200,14 +1200,13 @@ footer {
   border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 .fgrid .nm {
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Bodoni Moda", "Playfair Display", Georgia, serif;
   color: #fff;
-  letter-spacing: 4px;
 }
 .fgrid .tl {
-  font-family: "Playfair Display", Georgia, serif;
-  color: var(--gold-s);
-  font-style: italic;
+  font-family: "Inter", sans-serif;
+  color: #dbe2ea;
+  font-style: normal;
 }
 .fcol b {
   font-family: "Inter", sans-serif;
@@ -3166,14 +3165,30 @@ footer {
   }
   .home-short footer .fgrid {
     display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    grid-template-columns: 1fr;
     align-items: start;
-    gap: 18px;
+    gap: 14px;
     padding-bottom: 18px;
   }
   .home-short footer .fcol:nth-child(2),
   .home-short footer .fcol:nth-child(3) {
     display: none;
+  }
+  .home-short footer .fcol:first-child > div:last-child:not(.tl):not(.nm) {
+    display: none;
+  }
+  .home-short footer .fcol:nth-child(4) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px 14px;
+  }
+  .home-short footer .fcol:nth-child(4) b {
+    flex-basis: 100%;
+    margin-bottom: 3px;
+  }
+  .home-short footer .fcol:nth-child(4) div {
+    margin: 0;
+    font-size: 12px;
   }
   .home-short footer .disc {
     margin-top: 14px;

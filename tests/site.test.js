@@ -30,6 +30,9 @@ for (const page of publicPages) {
   assert.match(source, /href="privacy\.html"/i, `${page} needs a privacy link`);
   assert.match(source, /href="disclosures\.html"/i, `${page} needs a disclosure link`);
   assert.equal((source.match(/<h1\b/gi) || []).length, 1, `${page} needs exactly one h1`);
+  assert.match(source, /class="brand-calculus">CALCULUS<\/span>/i, `${page} needs the card-style footer wordmark`);
+  assert.match(source, /The key to your American dream/i, `${page} needs the approved brand tagline`);
+  assert.ok(!source.includes("Experience. Trust. Global Vision."), `${page} contains the retired tagline`);
 
   for (const claim of forbiddenClaims) {
     assert.ok(!withoutComments.includes(claim), `${page} contains launch-blocking claim: ${claim}`);
@@ -65,6 +68,12 @@ assert.match(
   /\.menu-extra\s*\{\s*display:\s*block;/,
   "Services and FAQs must remain discoverable in the primary navigation",
 );
+assert.match(
+  styles,
+  /\.brand \.nm\s*\{\s*display:\s*none;/,
+  "The full wordmark must remain removed from the top navigation",
+);
+assert.match(styles, /Bodoni Moda/, "The footer wordmark must use the business-card type style");
 assert.match(
   homeStyles,
   /@media\s*\(max-width:\s*900px\)[\s\S]*?\.home-short \.journey-home ~ section:not\(\.ctaband\)\s*\{\s*display:\s*none;/,
