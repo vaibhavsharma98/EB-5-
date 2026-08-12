@@ -3207,3 +3207,206 @@ footer {
     letter-spacing: 2.5px;
   }
 }
+
+/* ===== MOBILE HOMEPAGE POLISH =====
+   Give each opening section its own visual role, keep the Liberty image
+   recognisable, and make every important mobile action comfortably tappable. */
+@media (max-width: 900px) {
+  .home-short .hero {
+    min-height: max(650px, calc(100svh - 24px));
+  }
+
+  .home-short .hero-media-frame {
+    background: #2e5f98;
+  }
+
+  .home-short .hero-video {
+    object-position: 52% center;
+    filter: saturate(0.88) contrast(1.08);
+  }
+
+  .home-short .hero-scrim {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(25, 75, 126, 0.76) 0%,
+        rgba(35, 91, 149, 0.54) 58%,
+        rgba(38, 96, 156, 0.26) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(24, 81, 139, 0.2) 0%,
+        rgba(31, 84, 140, 0.34) 48%,
+        rgba(24, 67, 115, 0.82) 100%
+      );
+  }
+
+  .home-short .hero h1,
+  .home-short .hero .sub {
+    text-shadow: 0 2px 12px rgba(9, 35, 67, 0.5);
+  }
+
+  .home-short .hero .sub {
+    line-height: 1.58;
+  }
+
+  .home-short .hero .micro {
+    padding-right: 72px;
+  }
+
+  .home-short .hero-inner {
+    padding-bottom: 38px;
+  }
+
+  /* A light credential band creates an intentional pause after the blue hero. */
+  .home-short .micro-trust {
+    background: #fff;
+    border-top: 1px solid #e0e6ed;
+    border-bottom: 1px solid #d8e0e9;
+    padding: 10px 0;
+  }
+
+  .home-short .micro-trust .wrap {
+    gap: 8px;
+  }
+
+  .home-short .micro-trust .mt-item {
+    min-height: 60px;
+    padding: 9px 10px;
+    border: 1px solid #e2e8ef;
+    border-radius: 10px;
+    background: #f7f9fb;
+    color: #24384f;
+    font-size: 11.5px;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .home-short .micro-trust .mt-ic {
+    color: var(--navy-d);
+  }
+
+  .home-short .micro-trust .mt-ic svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Statistics now read as a separate editorial panel, not a third blue band. */
+  .home-short .stats {
+    background: #eaf1f7;
+    padding: 34px 0;
+  }
+
+  .home-short .stats::before {
+    background: radial-gradient(circle, rgba(71, 122, 185, 0.13), transparent 66%);
+  }
+
+  .home-short .stats::after {
+    display: none;
+  }
+
+  .home-short .stats .eyebrow {
+    color: var(--navy-d);
+  }
+
+  .home-short .stats .eyebrow::before {
+    background: var(--cta-red);
+  }
+
+  .home-short .stats .sec-head h2,
+  .home-short .stats .stat .num {
+    color: #1d3f66;
+  }
+
+  .home-short .stats .row {
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .home-short .stats .stat {
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #d7e1eb;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 8px 24px rgba(25, 61, 99, 0.07);
+  }
+
+  .home-short .stats .stat .ul {
+    background: var(--cta-red);
+  }
+
+  .home-short .stats .stat .num {
+    font-size: 32px;
+  }
+
+  .home-short .stats .stat .lab {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .home-short .stats .sec-head h2 {
+    font-size: 32px;
+    line-height: 1.12;
+  }
+
+  .home-short .stats .stat .lab,
+  .home-short .stats .note {
+    color: #52657a;
+  }
+
+  .home-short .stats .note {
+    margin-top: 16px;
+    line-height: 1.45;
+  }
+
+  .home-short .stats + section.ivory {
+    background-color: #fff;
+  }
+
+  /* Mobile controls use a 44px minimum interaction area. */
+  .home-short .brand,
+  .home-short .burger,
+  .home-short .hero .tlink,
+  .home-short .journey-home-intro a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .home-short .burger {
+    min-width: 44px;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  .home-short .burger:focus-visible,
+  .home-short .hero .tlink:focus-visible,
+  .home-short .journey-home-intro a:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.78);
+    outline-offset: 3px;
+  }
+
+  .js body.home-short {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+
+  .home-short .mcta {
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+
+  .home-short .wa {
+    bottom: calc(88px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 360px) {
+  .home-short .hero h1 {
+    font-size: 35px;
+  }
+
+  .home-short .hero .sub {
+    font-size: 16px;
+  }
+
+}

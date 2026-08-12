@@ -79,6 +79,21 @@ assert.match(
   /@media\s*\(max-width:\s*900px\)[\s\S]*?\.home-short \.journey-home ~ section:not\(\.ctaband\)\s*\{\s*display:\s*none;/,
   "Homepage shortening must remain limited to the mobile breakpoint",
 );
+assert.match(
+  homeStyles,
+  /\.home-short \.micro-trust\s*\{[\s\S]*?background:\s*#fff;/,
+  "The mobile credential band must visually separate the hero from the next section",
+);
+assert.match(
+  homeStyles,
+  /\.home-short \.hero-scrim\s*\{[\s\S]*?rgba\(38,\s*96,\s*156,\s*0\.26\)/,
+  "The mobile hero must preserve visible Statue of Liberty detail",
+);
+assert.match(
+  homeStyles,
+  /\.home-short \.stats\s*\{\s*background:\s*#eaf1f7;/,
+  "Mobile statistics must not continue the hero's blue surface",
+);
 assert.doesNotMatch(
   scripts,
   /sessionStorage[\s\S]*?tcJourneyAccessGranted|tcJourneyAccessGranted[\s\S]*?sessionStorage/,
