@@ -94,6 +94,16 @@ assert.match(
   /\.home-short \.stats\s*\{\s*background:\s*#eaf1f7;/,
   "Mobile statistics must not continue the hero's blue surface",
 );
+assert.match(
+  homeStyles,
+  /\.home-short \.ctaband\s*\{[\s\S]*?#f5f7fa;/,
+  "The mobile closing CTA must remain visually separate from the footer",
+);
+assert.match(
+  homeStyles,
+  /\.home-short footer\s*\{[\s\S]*?background:\s*#0d263f;/,
+  "The mobile footer must use the distinct dark brand surface",
+);
 assert.doesNotMatch(
   scripts,
   /sessionStorage[\s\S]*?tcJourneyAccessGranted|tcJourneyAccessGranted[\s\S]*?sessionStorage/,
